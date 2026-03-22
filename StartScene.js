@@ -8,7 +8,7 @@ export default class StartScene extends Phaser.Scene {
     this.add
       .text(400, 200, "Joc de Potrivire", {
         fontSize: "48px",
-        fill: "#ffffff",
+        fill: "#264653", // Culoare închisă și calmă pentru titlu
       })
       .setOrigin(0.5);
 
@@ -16,18 +16,19 @@ export default class StartScene extends Phaser.Scene {
     const level1Button = this.add
       .text(400, 320, "Nivel 1 (Forme)", {
         fontSize: "24px",
-        fill: "#0f0",
-        backgroundColor: "#333",
+        fill: "#ffffff",
+        backgroundColor: "#457B9D", // Albastru moale
         padding: { x: 20, y: 10 },
       })
       .setOrigin(0.5)
       .setInteractive();
 
-    level1Button.on("pointerover", () =>
-      level1Button.setStyle({ fill: "#ff0" }),
+    level1Button.on(
+      "pointerover",
+      () => level1Button.setStyle({ fill: "#FFE066" }), // Hover în galben stins
     );
     level1Button.on("pointerout", () =>
-      level1Button.setStyle({ fill: "#0f0" }),
+      level1Button.setStyle({ fill: "#ffffff" }),
     );
 
     level1Button.on("pointerdown", () => {
@@ -38,18 +39,18 @@ export default class StartScene extends Phaser.Scene {
     const level2Button = this.add
       .text(400, 400, "Nivel 2 (Măr)", {
         fontSize: "24px",
-        fill: "#0f0",
-        backgroundColor: "#333",
+        fill: "#ffffff",
+        backgroundColor: "#457B9D",
         padding: { x: 20, y: 10 },
       })
       .setOrigin(0.5)
       .setInteractive();
 
     level2Button.on("pointerover", () =>
-      level2Button.setStyle({ fill: "#ff0" }),
+      level2Button.setStyle({ fill: "#FFE066" }),
     );
     level2Button.on("pointerout", () =>
-      level2Button.setStyle({ fill: "#0f0" }),
+      level2Button.setStyle({ fill: "#ffffff" }),
     );
 
     level2Button.on("pointerdown", () => {
@@ -60,18 +61,18 @@ export default class StartScene extends Phaser.Scene {
     const level3Button = this.add
       .text(400, 480, "Nivel 3 (Amestecat)", {
         fontSize: "24px",
-        fill: "#0f0",
-        backgroundColor: "#333",
+        fill: "#ffffff",
+        backgroundColor: "#457B9D",
         padding: { x: 20, y: 10 },
       })
       .setOrigin(0.5)
       .setInteractive();
 
     level3Button.on("pointerover", () =>
-      level3Button.setStyle({ fill: "#ff0" }),
+      level3Button.setStyle({ fill: "#FFE066" }),
     );
     level3Button.on("pointerout", () =>
-      level3Button.setStyle({ fill: "#0f0" }),
+      level3Button.setStyle({ fill: "#ffffff" }),
     );
 
     level3Button.on("pointerdown", () => {

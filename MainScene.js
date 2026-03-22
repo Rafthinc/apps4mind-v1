@@ -9,12 +9,14 @@ export default class MainScene extends Phaser.Scene {
       .text(20, 20, "Acasă", {
         fontSize: "24px",
         fill: "#ffffff",
-        backgroundColor: "#333",
+        backgroundColor: "#F4A261", // Culoare caldă, prietenoasă
         padding: { x: 10, y: 5 },
       })
       .setInteractive();
 
-    homeButton.on("pointerover", () => homeButton.setStyle({ fill: "#ff0" }));
+    homeButton.on("pointerover", () =>
+      homeButton.setStyle({ fill: "#264653" }),
+    );
     homeButton.on("pointerout", () => homeButton.setStyle({ fill: "#ffffff" }));
     homeButton.on("pointerdown", () => {
       this.scene.start("StartScene");
@@ -22,8 +24,9 @@ export default class MainScene extends Phaser.Scene {
 
     this.matchedCount = 0; // Contorizăm câte imagini au fost potrivite
 
-    // Culorile perechilor (reprezentând cele 4 imagini distincte)
-    const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00];
+    // Culorile perechilor (blânde, prietenoase pentru copii cu ADHD - fără neon)
+    // Roșu stins (Teracotă), Verde stins (Teal), Albastru stins, Galben stins
+    const colors = [0xe76f51, 0x2a9d8f, 0x457b9d, 0xe9c46a];
 
     // Pozițiile Y pentru cele 4 rânduri
     const leftPositionsY = [100, 250, 400, 550];
@@ -156,8 +159,8 @@ export default class MainScene extends Phaser.Scene {
           this.add
             .text(400, 300, "FELICITĂRI! AI CÂȘTIGAT!", {
               fontSize: "40px",
-              fill: "#0f0",
-              backgroundColor: "#000",
+              fill: "#ffffff",
+              backgroundColor: "#2A9D8F", // Fundal verde calm
             })
             .setOrigin(0.5)
             .setDepth(10);

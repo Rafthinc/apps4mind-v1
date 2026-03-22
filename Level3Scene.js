@@ -26,12 +26,14 @@ export default class Level3Scene extends Phaser.Scene {
       .text(20, 20, "Acasă", {
         fontSize: "24px",
         fill: "#ffffff",
-        backgroundColor: "#333",
+        backgroundColor: "#F4A261",
         padding: { x: 10, y: 5 },
       })
       .setInteractive();
 
-    homeButton.on("pointerover", () => homeButton.setStyle({ fill: "#ff0" }));
+    homeButton.on("pointerover", () =>
+      homeButton.setStyle({ fill: "#264653" }),
+    );
     homeButton.on("pointerout", () => homeButton.setStyle({ fill: "#ffffff" }));
     homeButton.on("pointerdown", () => {
       this.scene.start("StartScene");
@@ -49,8 +51,8 @@ export default class Level3Scene extends Phaser.Scene {
     this.successText = this.add
       .text(400, 350, "POTRIVIRE CORECTĂ!", {
         fontSize: "40px",
-        fill: "#0f0",
-        backgroundColor: "#000",
+        fill: "#ffffff",
+        backgroundColor: "#2A9D8F",
       })
       .setOrigin(0.5)
       .setDepth(10)
@@ -112,8 +114,8 @@ export default class Level3Scene extends Phaser.Scene {
       this.add
         .text(400, 350, "FELICITĂRI! AI TERMINAT NIVELUL 3!", {
           fontSize: "40px",
-          fill: "#0f0",
-          backgroundColor: "#000",
+          fill: "#ffffff",
+          backgroundColor: "#2A9D8F",
         })
         .setOrigin(0.5)
         .setDepth(10);
