@@ -125,7 +125,7 @@ export default class Level3Scene extends Phaser.Scene {
     const bottomOptions = [targetImage, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomOptions);
 
-    const scaleFact = w < 600 ? 0.15 : 0.5; // Mai mici pe telefon pentru a încăpea 3
+    const scaleFact = w < 600 ? 0.25 : 0.5; // Mai mici pe telefon pentru a încăpea 3
 
     // Setăm coordonatele X pentru cele 3 imagini de jos
     const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];
