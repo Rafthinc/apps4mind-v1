@@ -41,18 +41,25 @@
         padding: 15px 40px;
         box-shadow: 0px 8px 0px #1d3557;
         cursor: pointer;
-        transition: all 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          box-shadow 0.2s,
+          margin-top 0.2s,
+          margin-bottom 0.2s;
         pointer-events: auto; /* Permite interacțiunea cu mouse/touch */
         user-select: none;
       }
       .game-button:hover {
         background: #ffe066;
         color: #264653;
-        transform: translateY(4px);
+        margin-top: 4px;
+        margin-bottom: -4px;
         box-shadow: 0px 4px 0px #1d3557;
       }
       .game-button:active {
-        transform: translateY(8px);
+        margin-top: 8px;
+        margin-bottom: -8px;
         box-shadow: 0px 0px 0px #1d3557;
       }
       .home-button {
@@ -65,15 +72,26 @@
         padding: 10px 20px;
         box-shadow: 0px 5px 0px #c44536;
         cursor: pointer;
-        transition: all 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          box-shadow 0.2s,
+          margin-top 0.2s,
+          margin-bottom 0.2s;
         pointer-events: auto;
         user-select: none;
       }
       .home-button:hover {
         background: #ffe066;
         color: #264653;
-        transform: translateY(2px);
+        margin-top: 2px;
+        margin-bottom: -2px;
         box-shadow: 0px 3px 0px #c44536;
+      }
+      .home-button:active {
+        margin-top: 5px;
+        margin-bottom: -5px;
+        box-shadow: 0px 0px 0px #c44536;
       }
       .success-text {
         font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
@@ -90,11 +108,11 @@
       }
       @keyframes pop {
         0% {
-          transform: scale(0.5);
+          scale: 0.5;
           opacity: 0;
         }
         100% {
-          transform: scale(1);
+          scale: 1;
           opacity: 1;
         }
       }

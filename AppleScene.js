@@ -45,6 +45,7 @@ export default class AppleScene extends Phaser.Scene {
     this.successText = this.add
       .dom(w / 2, h / 2, "div", "", "POTRIVIRE CORECTĂ!")
       .setClassName("success-text")
+      .setOrigin(0.5)
       .setVisible(false);
 
     // --- Logica de Drag & Drop ---
@@ -102,7 +103,8 @@ export default class AppleScene extends Phaser.Scene {
     if (this.remainingImages.length === 0) {
       this.add
         .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI TERMINAT!")
-        .setClassName("success-text");
+        .setClassName("success-text")
+        .setOrigin(0.5);
       return; // Ne oprim aici
     }
 

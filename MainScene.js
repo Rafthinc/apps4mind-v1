@@ -164,7 +164,8 @@ export default class MainScene extends Phaser.Scene {
         if (this.matchedCount === 4) {
           this.add
             .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI CÂȘTIGAT!")
-            .setClassName("success-text");
+            .setClassName("success-text")
+            .setOrigin(0.5);
         }
       } else {
         // Potrivire greșită - îl trimitem înapoi de unde a plecat
