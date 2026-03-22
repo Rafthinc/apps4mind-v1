@@ -125,7 +125,7 @@ export default class Level3Scene extends Phaser.Scene {
     const bottomOptions = [targetImage, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomOptions);
 
-    const targetSize = w < 600 ? 200 : 150; // Dimensiune standard uniformă
+    const targetSize = w < 600 ? 150 : 350; // Dimensiune standard uniformă
 
     // Setăm coordonatele X pentru cele 3 imagini de jos
     const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];

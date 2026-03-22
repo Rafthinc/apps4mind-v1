@@ -118,7 +118,7 @@ export default class Level4Scene extends Phaser.Scene {
     const bottomCategories = [targetCategory, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomCategories);
 
-    const targetSize = w < 600 ? 100 : 150;
+    const targetSize = w < 600 ? 150 : 350;
     const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];
 
     for (let i = 0; i < 3; i++) {

@@ -111,7 +111,7 @@ export default class AppleScene extends Phaser.Scene {
     // Scoatem următoarea imagine din array-ul amestecat
     const currentImage = this.remainingImages.pop();
 
-    const targetSize = w < 600 ? 200 : 200; // Setăm o dimensiune standard uniformă în pixeli
+    const targetSize = w < 600 ? 150 : 350; // Setăm o dimensiune standard uniformă în pixeli
 
     // 1. Creăm ținta din partea de jos
     this.bottomImage = this.add.image(w / 2, h * 0.8, currentImage);
