@@ -10,6 +10,7 @@ const config = {
   dom: {
     createContainer: true, // Permite folosirea elementelor HTML
   },
+  resolution: window.devicePixelRatio || 1, // Previne imaginile blurate/pixelate pe telefoane
   scale: {
     mode: Phaser.Scale.RESIZE, // Ocupă 100% din ecran în funcție de dispozitiv
     parent: "body",
