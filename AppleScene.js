@@ -18,6 +18,9 @@ export default class AppleScene extends Phaser.Scene {
     this.imageKeys.forEach((key) => {
       this.load.image(key, `assets/imagini/${key}.webp`);
     });
+
+    this.load.image("stea-goala", "assets/imagini/stea-goala.png");
+    this.load.image("stea-plina", "assets/imagini/stea-plina.png");
   }
 
   create() {
@@ -40,6 +43,22 @@ export default class AppleScene extends Phaser.Scene {
 
     const w = this.scale.width;
     const h = this.scale.height;
+
+    this.score = 0;
+    this.totalRounds = this.imageKeys.length;
+    this.stars = [];
+    const starSpacing = w < 600 ? 40 : 60;
+    const starStartX = w / 2 - ((this.totalRounds - 1) * starSpacing) / 2;
+
+    for (let i = 0; i < this.totalRounds; i++) {
+      let star = this.add.image(
+        starStartX + i * starSpacing,
+        h * 0.1,
+        "stea-goala",
+      );
+      star.setDisplaySize(starSpacing * 0.8, starSpacing * 0.8);
+      this.stars.push(star);
+    }
 
     // Textul de succes - îl creăm ascuns (setVisible(false))
     this.successText = this.add
@@ -66,6 +85,23 @@ export default class AppleScene extends Phaser.Scene {
 
       // Dezactivăm interactivitatea, nu mai poate fi mutat
       gameObject.input.enabled = false;
+
+      if (this.score < this.totalRounds) {
+        let currentStar = this.stars[this.score];
+        currentStar.setTexture("stea-plina");
+
+        // Efect vizual de mărire (pop)
+        this.tweens.add({
+          targets: currentStar,
+          scaleX: currentStar.scaleX * 1.5,
+          scaleY: currentStar.scaleY * 1.5,
+          duration: 300,
+          yoyo: true, // o face să se micșoreze la loc
+          ease: "Back.easeOut", // efect de elasticitate la mărire
+        });
+
+        this.score++;
+      }
 
       // Afișăm temporar mesajul de succes
       this.successText.setVisible(true);
@@ -132,7 +168,7 @@ export default class AppleScene extends Phaser.Scene {
       );
 
     // 2. Creăm elementul trăgabil din partea de sus
-    this.topImage = this.add.image(w / 2, h * 0.2, currentImage);
+    this.topImage = this.add.image(w / 2, h * 0.3, currentImage);
     this.topImage.setScale(
       targetSize / Math.max(this.topImage.width, this.topImage.height),
     );
