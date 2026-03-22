@@ -6,17 +6,17 @@ export default class Level3Scene extends Phaser.Scene {
   preload() {
     // Lista cu numele imaginilor
     this.imageKeys = [
-      "mar-rosu",
-      "mar-verde",
-      "masina",
-      "catel",
-      "copac",
-      "puisor",
+      "catel-1",
+      "copac-1",
+      "mar-rosu-1",
+      "masina-1",
+      "para-1",
+      "pui-1",
     ];
 
     // Încărcăm automat toate imaginile din listă
     this.imageKeys.forEach((key) => {
-      this.load.image(key, `assets/${key}.png`);
+      this.load.image(key, `assets/imagini/${key}.webp`);
     });
   }
 
@@ -125,7 +125,7 @@ export default class Level3Scene extends Phaser.Scene {
     const bottomOptions = [targetImage, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomOptions);
 
-    const scaleFact = w < 600 ? 0.15 : 0.3; // Mai mici pe telefon pentru a încăpea 3
+    const scaleFact = w < 600 ? 0.15 : 0.5; // Mai mici pe telefon pentru a încăpea 3
 
     // Setăm coordonatele X pentru cele 3 imagini de jos
     const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];

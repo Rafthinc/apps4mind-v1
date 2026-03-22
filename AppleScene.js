@@ -6,17 +6,17 @@ export default class AppleScene extends Phaser.Scene {
   preload() {
     // Lista cu numele imaginilor pe care vrei să le folosești
     this.imageKeys = [
-      "mar-rosu",
-      "mar-verde",
-      "masina",
-      "catel",
-      "copac",
-      "puisor",
+      "catel-1",
+      "copac-1",
+      "mar-rosu-1",
+      "masina-1",
+      "para-1",
+      "pui-1",
     ];
 
     // Încărcăm automat toate imaginile din listă
     this.imageKeys.forEach((key) => {
-      this.load.image(key, `assets/${key}.png`);
+      this.load.image(key, `assets/imagini/${key}.webp`);
     });
   }
 
@@ -111,7 +111,7 @@ export default class AppleScene extends Phaser.Scene {
     // Scoatem următoarea imagine din array-ul amestecat
     const currentImage = this.remainingImages.pop();
 
-    const scaleFact = w < 600 ? 0.2 : 0.3; // Scalăm imaginea pe dispozitive mici
+    const scaleFact = w < 600 ? 0.4 : 0.6; // Scalăm imaginea pe dispozitive mici
 
     // 1. Creăm ținta din partea de jos
     this.bottomImage = this.add
