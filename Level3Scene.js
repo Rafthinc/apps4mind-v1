@@ -21,6 +21,7 @@ export default class Level3Scene extends Phaser.Scene {
 
     this.load.image("stea-goala", "assets/imagini/stea-goala.png");
     this.load.image("stea-plina", "assets/imagini/stea-plina.png");
+    this.load.image("confetti", "assets/imagini/confetti.png");
   }
 
   create() {
@@ -144,6 +145,22 @@ export default class Level3Scene extends Phaser.Scene {
         .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI TERMINAT NIVELUL 3!")
         .setClassName("success-text")
         .setOrigin(0.5);
+
+      // Efect de ploaie de confetti
+      const particles = this.add.particles("confetti");
+      particles.setDepth(10);
+      particles.createEmitter({
+        x: { min: 0, max: w },
+        y: -50,
+        speedY: { min: 100, max: 300 },
+        speedX: { min: -50, max: 50 },
+        gravityY: 100,
+        scale: { start: 0.5, end: 0.1 },
+        rotate: { start: 0, end: 360 },
+        lifespan: 5000,
+        frequency: 200,
+      });
+
       return;
     }
 

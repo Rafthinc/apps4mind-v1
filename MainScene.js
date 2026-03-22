@@ -3,6 +3,11 @@ export default class MainScene extends Phaser.Scene {
     super({ key: "MainScene" });
   }
 
+  preload() {
+    // Încărcăm imaginea cu grupul de confetti
+    this.load.image("confetti", "assets/imagini/confetti.png");
+  }
+
   create() {
     const w = this.scale.width;
     const h = this.scale.height;
@@ -166,6 +171,21 @@ export default class MainScene extends Phaser.Scene {
             .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI CÂȘTIGAT!")
             .setClassName("success-text")
             .setOrigin(0.5);
+
+          // Efect de ploaie de confetti (folosind imaginea nedecupată)
+          const particles = this.add.particles("confetti");
+          particles.setDepth(10); // Să fie vizibil peste forme
+          particles.createEmitter({
+            x: { min: 0, max: w }, // Cade aleator pe toată lățimea ecranului
+            y: -50, // Pornește puțin mai sus de marginea de sus a ecranului
+            speedY: { min: 100, max: 300 }, // Viteza de cădere în jos
+            speedX: { min: -50, max: 50 }, // Ușor balans la stânga și la dreapta
+            gravityY: 100, // Gravitație pentru a accelera căderea
+            scale: { start: 0.5, end: 0.1 }, // Se micșorează ușor pe măsură ce cad
+            rotate: { start: 0, end: 360 }, // Rotește întreaga imagine fluid în timp
+            lifespan: 5000, // Cât timp trăiește pe ecran (5 secunde)
+            frequency: 200, // Emite o nouă "ploaie/grup" la fiecare 200ms
+          });
         }
       } else {
         // Potrivire greșită - îl trimitem înapoi de unde a plecat
