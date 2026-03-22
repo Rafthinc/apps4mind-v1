@@ -4,9 +4,12 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     // Titlul jocului
     this.add
-      .text(400, 200, "Joc de Potrivire", {
+      .text(w / 2, h * 0.2, "Joc de Potrivire", {
         fontSize: "48px",
         fill: "#264653", // Culoare închisă și calmă pentru titlu
       })
@@ -14,7 +17,7 @@ export default class StartScene extends Phaser.Scene {
 
     // Butonul pentru Nivelul 1 (Forme Multiple)
     const level1Button = this.add
-      .text(400, 320, "Nivel 1 (Forme)", {
+      .text(w / 2, h * 0.45, "Nivel 1 (Forme)", {
         fontSize: "24px",
         fill: "#ffffff",
         backgroundColor: "#457B9D", // Albastru moale
@@ -37,7 +40,7 @@ export default class StartScene extends Phaser.Scene {
 
     // Butonul pentru Nivelul 2 (Măr)
     const level2Button = this.add
-      .text(400, 400, "Nivel 2 (Măr)", {
+      .text(w / 2, h * 0.6, "Nivel 2 (Măr)", {
         fontSize: "24px",
         fill: "#ffffff",
         backgroundColor: "#457B9D",
@@ -59,7 +62,7 @@ export default class StartScene extends Phaser.Scene {
 
     // Butonul pentru Nivelul 3 (3 variante jos)
     const level3Button = this.add
-      .text(400, 480, "Nivel 3 (Amestecat)", {
+      .text(w / 2, h * 0.75, "Nivel 3 (Amestecat)", {
         fontSize: "24px",
         fill: "#ffffff",
         backgroundColor: "#457B9D",

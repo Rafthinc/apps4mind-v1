@@ -47,9 +47,12 @@ export default class AppleScene extends Phaser.Scene {
     this.topImage = null;
     this.dropZone = null;
 
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     // Textul de succes - îl creăm ascuns (setVisible(false))
     this.successText = this.add
-      .text(400, 350, "POTRIVIRE CORECTĂ!", {
+      .text(w / 2, h / 2, "POTRIVIRE CORECTĂ!", {
         fontSize: "40px",
         fill: "#ffffff",
         backgroundColor: "#2A9D8F",
@@ -102,6 +105,9 @@ export default class AppleScene extends Phaser.Scene {
 
   startNextRound() {
     // Curățăm imaginile și zona de potrivire din runda anterioară
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     if (this.bottomImage) this.bottomImage.destroy();
     if (this.topImage) this.topImage.destroy();
     if (this.dropZone) this.dropZone.destroy();
@@ -109,7 +115,7 @@ export default class AppleScene extends Phaser.Scene {
     // Dacă nu mai sunt imagini în listă, afișăm mesajul final
     if (this.remainingImages.length === 0) {
       this.add
-        .text(400, 350, "FELICITĂRI! AI TERMINAT!", {
+        .text(w / 2, h / 2, "FELICITĂRI! AI TERMINAT!", {
           fontSize: "40px",
           fill: "#ffffff",
           backgroundColor: "#2A9D8F",
@@ -122,13 +128,17 @@ export default class AppleScene extends Phaser.Scene {
     // Scoatem următoarea imagine din array-ul amestecat
     const currentImage = this.remainingImages.pop();
 
+    const scaleFact = w < 600 ? 0.2 : 0.3; // Scalăm imaginea pe dispozitive mici
+
     // 1. Creăm ținta din partea de jos
-    this.bottomImage = this.add.image(400, 500, currentImage).setScale(0.3);
+    this.bottomImage = this.add
+      .image(w / 2, h * 0.8, currentImage)
+      .setScale(scaleFact);
 
     this.dropZone = this.add
       .zone(
-        400,
-        500,
+        w / 2,
+        h * 0.8,
         this.bottomImage.displayWidth,
         this.bottomImage.displayHeight,
       )
@@ -139,8 +149,8 @@ export default class AppleScene extends Phaser.Scene {
 
     // 2. Creăm elementul trăgabil din partea de sus
     this.topImage = this.add
-      .image(400, 200, currentImage)
-      .setScale(0.3)
+      .image(w / 2, h * 0.2, currentImage)
+      .setScale(scaleFact)
       .setInteractive();
     this.topImage.originalX = this.topImage.x;
     this.topImage.originalY = this.topImage.y;

@@ -7,10 +7,10 @@ import Level3Scene from "./Level3Scene.js";
 const config = {
   type: Phaser.AUTO,
   scale: {
-    mode: Phaser.Scale.FIT, // Redimensionează jocul pentru a încăpea pe ecran
-    autoCenter: Phaser.Scale.CENTER_BOTH, // Centrează jocul orizontal și vertical
-    width: 800, // Rezoluția internă de bază (lățime)
-    height: 700, // Rezoluția internă de bază (înălțime)
+    mode: Phaser.Scale.RESIZE, // Ocupă 100% din ecran în funcție de dispozitiv
+    parent: "body",
+    width: "100%",
+    height: "100%",
   },
   backgroundColor: "#E0F2F1", // Fundal calm (mint pastel)
   scene: [StartScene, MainScene, AppleScene, Level3Scene], // Adăugăm scenele aici

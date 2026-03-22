@@ -47,9 +47,12 @@ export default class Level3Scene extends Phaser.Scene {
     this.dropZones = [];
     this.topImage = null;
 
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     // Textul de succes
     this.successText = this.add
-      .text(400, 350, "POTRIVIRE CORECTĂ!", {
+      .text(w / 2, h / 2, "POTRIVIRE CORECTĂ!", {
         fontSize: "40px",
         fill: "#ffffff",
         backgroundColor: "#2A9D8F",
@@ -102,6 +105,9 @@ export default class Level3Scene extends Phaser.Scene {
 
   startNextRound() {
     // Curățăm elementele de pe ecran din runda anterioară
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     this.bottomImages.forEach((img) => img.destroy());
     this.dropZones.forEach((zone) => zone.destroy());
     if (this.topImage) this.topImage.destroy();
@@ -112,7 +118,7 @@ export default class Level3Scene extends Phaser.Scene {
     // Verificăm dacă mai avem imagini
     if (this.remainingImages.length === 0) {
       this.add
-        .text(400, 350, "FELICITĂRI! AI TERMINAT NIVELUL 3!", {
+        .text(w / 2, h / 2, "FELICITĂRI! AI TERMINAT NIVELUL 3!", {
           fontSize: "40px",
           fill: "#ffffff",
           backgroundColor: "#2A9D8F",
@@ -136,19 +142,21 @@ export default class Level3Scene extends Phaser.Scene {
     const bottomOptions = [targetImage, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomOptions);
 
+    const scaleFact = w < 600 ? 0.15 : 0.3; // Mai mici pe telefon pentru a încăpea 3
+
     // Setăm coordonatele X pentru cele 3 imagini de jos
-    const bottomXPositions = [200, 400, 600];
+    const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];
 
     for (let i = 0; i < 3; i++) {
       // Desenăm imaginea de jos
       let img = this.add
-        .image(bottomXPositions[i], 500, bottomOptions[i])
-        .setScale(0.3);
+        .image(bottomXPositions[i], h * 0.8, bottomOptions[i])
+        .setScale(scaleFact);
       this.bottomImages.push(img);
 
       // Creăm zona de drop și salvăm "cheia" imaginii
       let zone = this.add
-        .zone(bottomXPositions[i], 500, img.displayWidth, img.displayHeight)
+        .zone(bottomXPositions[i], h * 0.8, img.displayWidth, img.displayHeight)
         .setRectangleDropZone(img.displayWidth, img.displayHeight);
       zone.matchKey = bottomOptions[i]; // Memorăm ce imagine se potrivește aici
       this.dropZones.push(zone);
@@ -156,8 +164,8 @@ export default class Level3Scene extends Phaser.Scene {
 
     // 2. Creăm elementul trăgabil din partea de sus
     this.topImage = this.add
-      .image(400, 200, targetImage)
-      .setScale(0.3)
+      .image(w / 2, h * 0.2, targetImage)
+      .setScale(scaleFact)
       .setInteractive();
     this.topImage.matchKey = targetImage; // Memorăm "cheia" proprie pentru potrivire
     this.topImage.originalX = this.topImage.x;

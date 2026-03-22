@@ -4,6 +4,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    const w = this.scale.width;
+    const h = this.scale.height;
+
     // Butonul de Home (Acasă)
     const homeButton = this.add
       .text(20, 20, "Acasă", {
@@ -28,12 +31,17 @@ export default class MainScene extends Phaser.Scene {
     // Roșu stins (Teracotă), Verde stins (Teal), Albastru stins, Galben stins
     const colors = [0xe76f51, 0x2a9d8f, 0x457b9d, 0xe9c46a];
 
+    const leftX = w * 0.25;
+    const rightX = w * 0.75;
+
     // Pozițiile Y pentru cele 4 rânduri
-    const leftPositionsY = [100, 250, 400, 550];
-    const rightPositionsY = [100, 250, 400, 550];
+    const leftPositionsY = [h * 0.2, h * 0.4, h * 0.6, h * 0.8];
+    const rightPositionsY = [h * 0.2, h * 0.4, h * 0.6, h * 0.8];
 
     // Amestecăm pozițiile din dreapta pentru ca jocul să nu fie rezolvat implicit
     Phaser.Utils.Array.Shuffle(rightPositionsY);
+
+    const shapeScale = w < 600 ? 0.6 : 1; // Scalăm formele pe mobil
 
     // Creăm zonele destinație pe partea dreaptă
     for (let i = 0; i < 4; i++) {
@@ -42,7 +50,7 @@ export default class MainScene extends Phaser.Scene {
       switch (i) {
         case 0: // Triunghi
           dropZoneBox = this.add.triangle(
-            600,
+            rightX,
             rightPositionsY[i],
             0,
             100,
@@ -53,23 +61,29 @@ export default class MainScene extends Phaser.Scene {
           );
           break;
         case 1: // Pătrat
-          dropZoneBox = this.add.rectangle(600, rightPositionsY[i], 100, 100);
+          dropZoneBox = this.add.rectangle(
+            rightX,
+            rightPositionsY[i],
+            100,
+            100,
+          );
           break;
         case 2: // Cerc
-          dropZoneBox = this.add.circle(600, rightPositionsY[i], 50);
+          dropZoneBox = this.add.circle(rightX, rightPositionsY[i], 50);
           break;
         case 3: // Romb (pătrat rotit la 45 de grade)
           dropZoneBox = this.add
-            .rectangle(600, rightPositionsY[i], 70, 70)
+            .rectangle(rightX, rightPositionsY[i], 70, 70)
             .setAngle(45);
           break;
       }
+      dropZoneBox.setScale(shapeScale);
       dropZoneBox.setStrokeStyle(4, colors[i]); // Contur de aceeași culoare pentru ajutor vizual
 
       // Creăm zona interactivă (drop zone) invizibilă
       let dropZone = this.add
-        .zone(600, rightPositionsY[i], 100, 100)
-        .setRectangleDropZone(100, 100);
+        .zone(rightX, rightPositionsY[i], 100 * shapeScale, 100 * shapeScale)
+        .setRectangleDropZone(100 * shapeScale, 100 * shapeScale);
       dropZone.matchId = i; // ID-ul perechii
     }
 
@@ -79,7 +93,7 @@ export default class MainScene extends Phaser.Scene {
       switch (i) {
         case 0: // Triunghi
           draggableItem = this.add.triangle(
-            200,
+            leftX,
             leftPositionsY[i],
             0,
             100,
@@ -92,7 +106,7 @@ export default class MainScene extends Phaser.Scene {
           break;
         case 1: // Pătrat
           draggableItem = this.add.rectangle(
-            200,
+            leftX,
             leftPositionsY[i],
             100,
             100,
@@ -101,7 +115,7 @@ export default class MainScene extends Phaser.Scene {
           break;
         case 2: // Cerc
           draggableItem = this.add.circle(
-            200,
+            leftX,
             leftPositionsY[i],
             50,
             colors[i],
@@ -109,11 +123,12 @@ export default class MainScene extends Phaser.Scene {
           break;
         case 3: // Romb
           draggableItem = this.add
-            .rectangle(200, leftPositionsY[i], 70, 70, colors[i])
+            .rectangle(leftX, leftPositionsY[i], 70, 70, colors[i])
             .setAngle(45);
           break;
       }
 
+      draggableItem.setScale(shapeScale);
       draggableItem.setInteractive();
 
       // Permitem obiectului să fie mutat (drag & drop)
@@ -157,7 +172,7 @@ export default class MainScene extends Phaser.Scene {
         // Verificăm dacă jocul s-a terminat
         if (this.matchedCount === 4) {
           this.add
-            .text(400, 300, "FELICITĂRI! AI CÂȘTIGAT!", {
+            .text(w / 2, h / 2, "FELICITĂRI! AI CÂȘTIGAT!", {
               fontSize: "40px",
               fill: "#ffffff",
               backgroundColor: "#2A9D8F", // Fundal verde calm
