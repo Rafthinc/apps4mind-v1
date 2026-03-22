@@ -8,7 +8,7 @@ export default class Level3Scene extends Phaser.Scene {
     this.imageKeys = [
       "catel-1",
       "copac-1",
-      "mar-rosu-1",
+      "mar-1",
       "masina-1",
       "para-1",
       "pui-1",

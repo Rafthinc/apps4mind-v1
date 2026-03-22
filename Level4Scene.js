@@ -5,7 +5,7 @@ export default class Level4Scene extends Phaser.Scene {
 
   preload() {
     // Lista categoriilor de obiecte (fără sufixul -1 sau -2)
-    this.categories = ["catel", "copac", "mar-rosu", "masina", "para", "pui"];
+    this.categories = ["catel", "copac", "mar", "masina", "para", "pui"];
 
     // Încărcăm automat ambele variante pentru fiecare categorie
     this.categories.forEach((cat) => {
