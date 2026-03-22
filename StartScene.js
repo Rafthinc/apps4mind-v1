@@ -9,76 +9,33 @@ export default class StartScene extends Phaser.Scene {
 
     // Titlul jocului
     this.add
-      .text(w / 2, h * 0.2, "Joc de Potrivire", {
-        fontSize: "48px",
-        fill: "#264653", // Culoare închisă și calmă pentru titlu
-      })
-      .setOrigin(0.5);
+      .dom(w / 2, h * 0.2, "div", "", "Joc de Potrivire")
+      .setClassName("game-title");
 
     // Butonul pentru Nivelul 1 (Forme Multiple)
     const level1Button = this.add
-      .text(w / 2, h * 0.45, "Nivel 1 (Forme)", {
-        fontSize: "24px",
-        fill: "#ffffff",
-        backgroundColor: "#457B9D", // Albastru moale
-        padding: { x: 20, y: 10 },
-      })
-      .setOrigin(0.5)
-      .setInteractive();
-
-    level1Button.on(
-      "pointerover",
-      () => level1Button.setStyle({ fill: "#FFE066" }), // Hover în galben stins
-    );
-    level1Button.on("pointerout", () =>
-      level1Button.setStyle({ fill: "#ffffff" }),
-    );
-
-    level1Button.on("pointerdown", () => {
+      .dom(w / 2, h * 0.45, "button", "", "Nivel 1 (Forme)")
+      .setClassName("game-button");
+    level1Button.addListener("click");
+    level1Button.on("click", () => {
       this.scene.start("MainScene");
     });
 
     // Butonul pentru Nivelul 2 (Măr)
     const level2Button = this.add
-      .text(w / 2, h * 0.6, "Nivel 2 (Măr)", {
-        fontSize: "24px",
-        fill: "#ffffff",
-        backgroundColor: "#457B9D",
-        padding: { x: 20, y: 10 },
-      })
-      .setOrigin(0.5)
-      .setInteractive();
-
-    level2Button.on("pointerover", () =>
-      level2Button.setStyle({ fill: "#FFE066" }),
-    );
-    level2Button.on("pointerout", () =>
-      level2Button.setStyle({ fill: "#ffffff" }),
-    );
-
-    level2Button.on("pointerdown", () => {
+      .dom(w / 2, h * 0.6, "button", "", "Nivel 2 (Măr)")
+      .setClassName("game-button");
+    level2Button.addListener("click");
+    level2Button.on("click", () => {
       this.scene.start("AppleScene");
     });
 
     // Butonul pentru Nivelul 3 (3 variante jos)
     const level3Button = this.add
-      .text(w / 2, h * 0.75, "Nivel 3 (Amestecat)", {
-        fontSize: "24px",
-        fill: "#ffffff",
-        backgroundColor: "#457B9D",
-        padding: { x: 20, y: 10 },
-      })
-      .setOrigin(0.5)
-      .setInteractive();
-
-    level3Button.on("pointerover", () =>
-      level3Button.setStyle({ fill: "#FFE066" }),
-    );
-    level3Button.on("pointerout", () =>
-      level3Button.setStyle({ fill: "#ffffff" }),
-    );
-
-    level3Button.on("pointerdown", () => {
+      .dom(w / 2, h * 0.75, "button", "", "Nivel 3 (Amestecat)")
+      .setClassName("game-button");
+    level3Button.addListener("click");
+    level3Button.on("click", () => {
       this.scene.start("Level3Scene");
     });
   }

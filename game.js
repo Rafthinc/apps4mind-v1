@@ -6,6 +6,9 @@ import Level3Scene from "./Level3Scene.js";
 // Configurarea de bază a jocului
 const config = {
   type: Phaser.AUTO,
+  dom: {
+    createContainer: true, // Permite folosirea elementelor HTML
+  },
   scale: {
     mode: Phaser.Scale.RESIZE, // Ocupă 100% din ecran în funcție de dispozitiv
     parent: "body",

@@ -23,19 +23,10 @@ export default class Level3Scene extends Phaser.Scene {
   create() {
     // Butonul de Home (Acasă)
     const homeButton = this.add
-      .text(20, 20, "Acasă", {
-        fontSize: "24px",
-        fill: "#ffffff",
-        backgroundColor: "#F4A261",
-        padding: { x: 10, y: 5 },
-      })
-      .setInteractive();
-
-    homeButton.on("pointerover", () =>
-      homeButton.setStyle({ fill: "#264653" }),
-    );
-    homeButton.on("pointerout", () => homeButton.setStyle({ fill: "#ffffff" }));
-    homeButton.on("pointerdown", () => {
+      .dom(70, 40, "button", "", "Acasă")
+      .setClassName("home-button");
+    homeButton.addListener("click");
+    homeButton.on("click", () => {
       this.scene.start("StartScene");
     });
 
@@ -52,13 +43,8 @@ export default class Level3Scene extends Phaser.Scene {
 
     // Textul de succes
     this.successText = this.add
-      .text(w / 2, h / 2, "POTRIVIRE CORECTĂ!", {
-        fontSize: "40px",
-        fill: "#ffffff",
-        backgroundColor: "#2A9D8F",
-      })
-      .setOrigin(0.5)
-      .setDepth(10)
+      .dom(w / 2, h / 2, "div", "", "POTRIVIRE CORECTĂ!")
+      .setClassName("success-text")
       .setVisible(false);
 
     // --- Logica de Drag & Drop ---
@@ -118,13 +104,8 @@ export default class Level3Scene extends Phaser.Scene {
     // Verificăm dacă mai avem imagini
     if (this.remainingImages.length === 0) {
       this.add
-        .text(w / 2, h / 2, "FELICITĂRI! AI TERMINAT NIVELUL 3!", {
-          fontSize: "40px",
-          fill: "#ffffff",
-          backgroundColor: "#2A9D8F",
-        })
-        .setOrigin(0.5)
-        .setDepth(10);
+        .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI TERMINAT NIVELUL 3!")
+        .setClassName("success-text");
       return;
     }
 

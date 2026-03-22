@@ -9,19 +9,10 @@ export default class MainScene extends Phaser.Scene {
 
     // Butonul de Home (Acasă)
     const homeButton = this.add
-      .text(20, 20, "Acasă", {
-        fontSize: "24px",
-        fill: "#ffffff",
-        backgroundColor: "#F4A261", // Culoare caldă, prietenoasă
-        padding: { x: 10, y: 5 },
-      })
-      .setInteractive();
-
-    homeButton.on("pointerover", () =>
-      homeButton.setStyle({ fill: "#264653" }),
-    );
-    homeButton.on("pointerout", () => homeButton.setStyle({ fill: "#ffffff" }));
-    homeButton.on("pointerdown", () => {
+      .dom(70, 40, "button", "", "Acasă")
+      .setClassName("home-button");
+    homeButton.addListener("click");
+    homeButton.on("click", () => {
       this.scene.start("StartScene");
     });
 
@@ -172,13 +163,8 @@ export default class MainScene extends Phaser.Scene {
         // Verificăm dacă jocul s-a terminat
         if (this.matchedCount === 4) {
           this.add
-            .text(w / 2, h / 2, "FELICITĂRI! AI CÂȘTIGAT!", {
-              fontSize: "40px",
-              fill: "#ffffff",
-              backgroundColor: "#2A9D8F", // Fundal verde calm
-            })
-            .setOrigin(0.5)
-            .setDepth(10);
+            .dom(w / 2, h / 2, "div", "", "FELICITĂRI! AI CÂȘTIGAT!")
+            .setClassName("success-text");
         }
       } else {
         // Potrivire greșită - îl trimitem înapoi de unde a plecat
