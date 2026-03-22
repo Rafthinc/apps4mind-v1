@@ -127,9 +127,8 @@ export default class Level4Scene extends Phaser.Scene {
       let imgKeyBottom = `${category}-2`;
 
       // Desenăm imaginea de jos
-      let img = this.add
-        .image(bottomXPositions[i], h * 0.8, imgKeyBottom)
-        .setDisplaySize(targetSize, targetSize);
+      let img = this.add.image(bottomXPositions[i], h * 0.8, imgKeyBottom);
+      img.setScale(targetSize / Math.max(img.width, img.height));
       this.bottomImages.push(img);
 
       // Creăm zona de drop și salvăm CATEGORIA pentru potrivire
@@ -142,10 +141,11 @@ export default class Level4Scene extends Phaser.Scene {
 
     // 2. Creăm elementul trăgabil din partea de SUS (folosind sufixul "-1")
     let imgKeyTop = `${targetCategory}-1`;
-    this.topImage = this.add
-      .image(w / 2, h * 0.2, imgKeyTop)
-      .setDisplaySize(targetSize, targetSize)
-      .setInteractive();
+    this.topImage = this.add.image(w / 2, h * 0.2, imgKeyTop);
+    this.topImage.setScale(
+      targetSize / Math.max(this.topImage.width, this.topImage.height),
+    );
+    this.topImage.setInteractive();
 
     this.topImage.matchCategory = targetCategory; // Memorăm categoria imaginii de sus
     this.topImage.originalX = this.topImage.x;

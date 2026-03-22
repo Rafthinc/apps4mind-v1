@@ -132,9 +132,8 @@ export default class Level3Scene extends Phaser.Scene {
 
     for (let i = 0; i < 3; i++) {
       // Desenăm imaginea de jos
-      let img = this.add
-        .image(bottomXPositions[i], h * 0.8, bottomOptions[i])
-        .setDisplaySize(targetSize, targetSize);
+      let img = this.add.image(bottomXPositions[i], h * 0.8, bottomOptions[i]);
+      img.setScale(targetSize / Math.max(img.width, img.height));
       this.bottomImages.push(img);
 
       // Creăm zona de drop și salvăm "cheia" imaginii
@@ -146,10 +145,12 @@ export default class Level3Scene extends Phaser.Scene {
     }
 
     // 2. Creăm elementul trăgabil din partea de sus
-    this.topImage = this.add
-      .image(w / 2, h * 0.2, targetImage)
-      .setDisplaySize(targetSize, targetSize)
-      .setInteractive();
+    this.topImage = this.add.image(w / 2, h * 0.2, targetImage);
+    this.topImage.setScale(
+      targetSize / Math.max(this.topImage.width, this.topImage.height),
+    );
+    this.topImage.setInteractive();
+
     this.topImage.matchKey = targetImage; // Memorăm "cheia" proprie pentru potrivire
     this.topImage.originalX = this.topImage.x;
     this.topImage.originalY = this.topImage.y;

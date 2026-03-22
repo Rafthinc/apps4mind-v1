@@ -114,9 +114,10 @@ export default class AppleScene extends Phaser.Scene {
     const targetSize = w < 600 ? 120 : 200; // Setăm o dimensiune standard uniformă în pixeli
 
     // 1. Creăm ținta din partea de jos
-    this.bottomImage = this.add
-      .image(w / 2, h * 0.8, currentImage)
-      .setDisplaySize(targetSize, targetSize);
+    this.bottomImage = this.add.image(w / 2, h * 0.8, currentImage);
+    this.bottomImage.setScale(
+      targetSize / Math.max(this.bottomImage.width, this.bottomImage.height),
+    );
 
     this.dropZone = this.add
       .zone(
@@ -131,10 +132,12 @@ export default class AppleScene extends Phaser.Scene {
       );
 
     // 2. Creăm elementul trăgabil din partea de sus
-    this.topImage = this.add
-      .image(w / 2, h * 0.2, currentImage)
-      .setDisplaySize(targetSize, targetSize)
-      .setInteractive();
+    this.topImage = this.add.image(w / 2, h * 0.2, currentImage);
+    this.topImage.setScale(
+      targetSize / Math.max(this.topImage.width, this.topImage.height),
+    );
+    this.topImage.setInteractive();
+
     this.topImage.originalX = this.topImage.x;
     this.topImage.originalY = this.topImage.y;
 
