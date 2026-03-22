@@ -125,7 +125,7 @@ export default class Level3Scene extends Phaser.Scene {
     const bottomOptions = [targetImage, ...distractors];
     Phaser.Utils.Array.Shuffle(bottomOptions);
 
-    const scaleFact = w < 600 ? 0.25 : 0.5; // Mai mici pe telefon pentru a încăpea 3
+    const targetSize = w < 600 ? 100 : 150; // Dimensiune standard uniformă
 
     // Setăm coordonatele X pentru cele 3 imagini de jos
     const bottomXPositions = [w * 0.2, w * 0.5, w * 0.8];
@@ -134,7 +134,7 @@ export default class Level3Scene extends Phaser.Scene {
       // Desenăm imaginea de jos
       let img = this.add
         .image(bottomXPositions[i], h * 0.8, bottomOptions[i])
-        .setScale(scaleFact);
+        .setDisplaySize(targetSize, targetSize);
       this.bottomImages.push(img);
 
       // Creăm zona de drop și salvăm "cheia" imaginii
@@ -148,7 +148,7 @@ export default class Level3Scene extends Phaser.Scene {
     // 2. Creăm elementul trăgabil din partea de sus
     this.topImage = this.add
       .image(w / 2, h * 0.2, targetImage)
-      .setScale(scaleFact)
+      .setDisplaySize(targetSize, targetSize)
       .setInteractive();
     this.topImage.matchKey = targetImage; // Memorăm "cheia" proprie pentru potrivire
     this.topImage.originalX = this.topImage.x;
