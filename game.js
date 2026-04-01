@@ -3,6 +3,7 @@ import MainScene from "./MainScene.js";
 import AppleScene from "./AppleScene.js";
 import Level3Scene from "./Level3Scene.js";
 import Level4Scene from "./Level4Scene.js";
+import Level5Scene from "./Level5Scene.js";
 
 // Configurarea de bază a jocului
 const config = {
@@ -18,7 +19,14 @@ const config = {
     height: "100%",
   },
   backgroundColor: "#E0F2F1", // Fundal calm (mint pastel)
-  scene: [StartScene, MainScene, AppleScene, Level3Scene, Level4Scene], // Adăugăm scenele aici
+  scene: [
+    StartScene,
+    MainScene,
+    AppleScene,
+    Level3Scene,
+    Level4Scene,
+    Level5Scene,
+  ], // Adăugăm scenele aici
 };
 
 // Pornim jocul

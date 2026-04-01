@@ -4,6 +4,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   preload() {
+    // Încărcăm imaginile pentru formele geometrice animate din stânga
+    const shapes = ["triunghi", "patrat", "cerc", "romb"];
+    shapes.forEach((shape) => {
+      this.load.image(`${shape}-1`, `assets/scena-1/${shape}-1.webp`);
+      this.load.image(`${shape}-2`, `assets/scena-1/${shape}-2.webp`);
+    });
+
     // Încărcăm imaginea cu grupul de confetti
     this.load.image("confetti", "assets/imagini/confetti.png");
   }
@@ -27,6 +34,9 @@ export default class MainScene extends Phaser.Scene {
     // Roșu stins (Teracotă), Verde stins (Teal), Albastru stins, Galben stins
     const colors = [0xe76f51, 0x2a9d8f, 0x457b9d, 0xe9c46a];
 
+    // Numele de bază ale formelor pentru a corela indicii (0=triunghi, 1=patrat, etc.)
+    const shapeNames = ["triunghi", "patrat", "cerc", "romb"];
+
     const leftX = w * 0.25;
     const rightX = w * 0.75;
 
@@ -37,7 +47,8 @@ export default class MainScene extends Phaser.Scene {
     // Amestecăm pozițiile din dreapta pentru ca jocul să nu fie rezolvat implicit
     Phaser.Utils.Array.Shuffle(rightPositionsY);
 
-    const shapeScale = w < 600 ? 0.6 : 1; // Scalăm formele pe mobil
+    const shapeScale = (w < 600 ? 0.6 : 1) / 3; // Scalăm formele din stânga (cele animate)
+    const rightShapeScale = shapeScale * 3; // Mărim cu încă 50% față de dimensiunea anterioară (deci de 3 ori față de cele din stânga)
 
     // Creăm zonele destinație pe partea dreaptă
     for (let i = 0; i < 4; i++) {
@@ -73,56 +84,33 @@ export default class MainScene extends Phaser.Scene {
             .setAngle(45);
           break;
       }
-      dropZoneBox.setScale(shapeScale);
+      dropZoneBox.setScale(rightShapeScale);
       dropZoneBox.setStrokeStyle(4, colors[i]); // Contur de aceeași culoare pentru ajutor vizual
 
       // Creăm zona interactivă (drop zone) invizibilă
       let dropZone = this.add
-        .zone(rightX, rightPositionsY[i], 100 * shapeScale, 100 * shapeScale)
-        .setRectangleDropZone(100 * shapeScale, 100 * shapeScale);
+        .zone(
+          rightX,
+          rightPositionsY[i],
+          100 * rightShapeScale,
+          100 * rightShapeScale,
+        )
+        .setRectangleDropZone(100 * rightShapeScale, 100 * rightShapeScale);
       dropZone.matchId = i; // ID-ul perechii
     }
 
+    this.draggableImages = [];
+
     // Creăm obiectele care pot fi trase (pe partea stângă)
     for (let i = 0; i < 4; i++) {
-      let draggableItem;
-      switch (i) {
-        case 0: // Triunghi
-          draggableItem = this.add.triangle(
-            leftX,
-            leftPositionsY[i],
-            0,
-            100,
-            50,
-            0,
-            100,
-            100,
-            colors[i],
-          );
-          break;
-        case 1: // Pătrat
-          draggableItem = this.add.rectangle(
-            leftX,
-            leftPositionsY[i],
-            100,
-            100,
-            colors[i],
-          );
-          break;
-        case 2: // Cerc
-          draggableItem = this.add.circle(
-            leftX,
-            leftPositionsY[i],
-            50,
-            colors[i],
-          );
-          break;
-        case 3: // Romb
-          draggableItem = this.add
-            .rectangle(leftX, leftPositionsY[i], 70, 70, colors[i])
-            .setAngle(45);
-          break;
-      }
+      let shapeName = shapeNames[i];
+
+      // Adăugăm imaginea cu primul cadru (-1.webp)
+      let draggableItem = this.add.image(
+        leftX,
+        leftPositionsY[i],
+        `${shapeName}-1`,
+      );
 
       draggableItem.setScale(shapeScale);
       draggableItem.setInteractive();
@@ -132,12 +120,31 @@ export default class MainScene extends Phaser.Scene {
 
       // Memorăm id-ul de potrivire și poziția de start pentru a-l întoarce dacă e greșit
       draggableItem.matchId = i;
+      draggableItem.shapeBaseName = shapeName; // Salvăm numele de bază pentru animație
       draggableItem.originalX = draggableItem.x;
       draggableItem.originalY = draggableItem.y;
 
       // Adăugăm un mic indicator vizual pentru a ști de el (se ridică în față când tragem)
       draggableItem.setDepth(1);
+
+      this.draggableImages.push(draggableItem);
     }
+
+    // --- Timer pentru simularea mișcării (alternarea imaginilor) ---
+    this.time.addEvent({
+      delay: 1200, // Schimbăm imaginea la fiecare 1200ms
+      callback: () => {
+        this.draggableImages.forEach((item) => {
+          let currentTexture = item.texture.key;
+          // Alternăm constant între cadrul 1 și 2
+          let nextTexture = currentTexture.endsWith("-1")
+            ? `${item.shapeBaseName}-2`
+            : `${item.shapeBaseName}-1`;
+          item.setTexture(nextTexture);
+        });
+      },
+      loop: true,
+    });
 
     // --- Logica de Drag & Drop ---
 
