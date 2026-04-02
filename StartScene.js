@@ -21,6 +21,7 @@ export default class StartScene extends Phaser.Scene {
       { key: "Level4Scene", text: "Nivel 4 (Asocieri)" },
       { key: "Level5Scene", text: "Nivel 5 (Umbre)" },
       { key: "Level6Scene", text: "Nivel 6 (Animale)" },
+      { key: "Level7Scene", text: "Nivel 7 (Peisaj)" },
     ];
 
     // Setăm numărul de coloane: 2 pentru mobile, 3 pentru ecrane mai mari
