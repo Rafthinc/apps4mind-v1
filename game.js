@@ -4,6 +4,7 @@ import AppleScene from "./AppleScene.js";
 import Level3Scene from "./Level3Scene.js";
 import Level4Scene from "./Level4Scene.js";
 import Level5Scene from "./Level5Scene.js";
+import Level6Scene from "./Level6Scene.js";
 
 // Configurarea de bază a jocului
 const config = {
@@ -26,6 +27,7 @@ const config = {
     Level3Scene,
     Level4Scene,
     Level5Scene,
+    Level6Scene,
   ], // Adăugăm scenele aici
 };
 

@@ -62,5 +62,15 @@ export default class StartScene extends Phaser.Scene {
     level5Button.on("click", () => {
       this.scene.start("Level5Scene");
     });
+
+    // Butonul pentru Nivelul 5 (Umbre și Animații)
+    const level6Button = this.add
+      .dom(w / 2, h * 1, "button", "", "Nivel 6 (Animale)")
+      .setClassName("game-button")
+      .setOrigin(0.5);
+    level6Button.addListener("click");
+    level6Button.on("click", () => {
+      this.scene.start("Level6Scene");
+    });
   }
 }
