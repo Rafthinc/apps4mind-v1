@@ -13,64 +13,38 @@ export default class StartScene extends Phaser.Scene {
       .setClassName("game-title")
       .setOrigin(0.5);
 
-    // Butonul pentru Nivelul 1 (Forme Multiple)
-    const level1Button = this.add
-      .dom(w / 2, h * 0.25, "button", "", "Nivel 1 (Forme)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level1Button.addListener("click");
-    level1Button.on("click", () => {
-      this.scene.start("MainScene");
-    });
+    // Lista de nivele pentru generarea automată a butoanelor
+    const levels = [
+      { key: "MainScene", text: "Nivel 1 (Forme)" },
+      { key: "AppleScene", text: "Nivel 2 (Măr)" },
+      { key: "Level3Scene", text: "Nivel 3 (Amestecat)" },
+      { key: "Level4Scene", text: "Nivel 4 (Asocieri)" },
+      { key: "Level5Scene", text: "Nivel 5 (Umbre)" },
+      { key: "Level6Scene", text: "Nivel 6 (Animale)" },
+    ];
 
-    // Butonul pentru Nivelul 2 (Măr)
-    const level2Button = this.add
-      .dom(w / 2, h * 0.4, "button", "", "Nivel 2 (Măr)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level2Button.addListener("click");
-    level2Button.on("click", () => {
-      this.scene.start("AppleScene");
-    });
+    // Setăm numărul de coloane: 2 pentru mobile, 3 pentru ecrane mai mari
+    const cols = w < 600 ? 2 : 3;
+    const startY = h * 0.25;
+    const spacingY = w < 600 ? 80 : 120; // Spațierea pe verticală între rânduri
 
-    // Butonul pentru Nivelul 3 (3 variante jos)
-    const level3Button = this.add
-      .dom(w / 2, h * 0.55, "button", "", "Nivel 3 (Amestecat)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level3Button.addListener("click");
-    level3Button.on("click", () => {
-      this.scene.start("Level3Scene");
-    });
+    levels.forEach((level, index) => {
+      const row = Math.floor(index / cols);
+      const col = index % cols;
 
-    // Butonul pentru Nivelul 4 (Asocieri)
-    const level4Button = this.add
-      .dom(w / 2, h * 0.7, "button", "", "Nivel 4 (Asocieri)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level4Button.addListener("click");
-    level4Button.on("click", () => {
-      this.scene.start("Level4Scene");
-    });
+      // Calculăm pozițiile exact pe mijlocul fiecărei "celule" din grilă
+      const x = (w / cols) * (col + 0.5);
+      const y = startY + row * spacingY;
 
-    // Butonul pentru Nivelul 5 (Umbre și Animații)
-    const level5Button = this.add
-      .dom(w / 2, h * 0.85, "button", "", "Nivel 5 (Umbre)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level5Button.addListener("click");
-    level5Button.on("click", () => {
-      this.scene.start("Level5Scene");
-    });
+      const button = this.add
+        .dom(x, y, "button", "", level.text)
+        .setClassName("game-button")
+        .setOrigin(0.5);
 
-    // Butonul pentru Nivelul 5 (Umbre și Animații)
-    const level6Button = this.add
-      .dom(w / 2, h * 1, "button", "", "Nivel 6 (Animale)")
-      .setClassName("game-button")
-      .setOrigin(0.5);
-    level6Button.addListener("click");
-    level6Button.on("click", () => {
-      this.scene.start("Level6Scene");
+      button.addListener("click");
+      button.on("click", () => {
+        this.scene.start(level.key);
+      });
     });
   }
 }
