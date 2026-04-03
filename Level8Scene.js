@@ -141,7 +141,13 @@ export default class Level8Scene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    let ballObj = { sprite, text, value, selected: false };
+    let ballObj = {
+      sprite,
+      text,
+      value,
+      selected: false,
+      originalColor: color,
+    };
     this.balls.push(ballObj);
 
     // Logica de selecție
@@ -154,10 +160,12 @@ export default class Level8Scene extends Phaser.Scene {
     ballObj.selected = !ballObj.selected;
 
     if (ballObj.selected) {
-      ballObj.sprite.setAlpha(0.7);
+      ballObj.sprite.setTint(0x000000);
+      ballObj.text.setColor("#ffffff");
       ballObj.sprite.setScale(1.1); // Efect de vizualizare ("glow" / pop)
     } else {
-      ballObj.sprite.setAlpha(1);
+      ballObj.sprite.setTint(ballObj.originalColor);
+      ballObj.text.setColor("#000000");
       ballObj.sprite.setScale(1);
     }
 
@@ -165,12 +173,21 @@ export default class Level8Scene extends Phaser.Scene {
   }
 
   updateChoices() {
+    const h = this.scale.height;
     this.choicesContainer.removeAll(true); // Ștergem opțiunile vechi
 
     let selectedBalls = this.balls.filter((b) => b.selected);
 
     // Afișăm opțiuni doar dacă sunt selectate minim 2 bile
     if (selectedBalls.length < 2) return;
+
+    // Mutăm containerul cu opțiuni sus sau jos în funcție de unde sunt bilele selectate
+    let lowestBallY = Math.max(...selectedBalls.map((b) => b.sprite.y));
+    if (lowestBallY > h * 0.6) {
+      this.choicesContainer.y = h * 0.15; // Mutăm sus dacă bilele sunt în partea de jos
+    } else {
+      this.choicesContainer.y = h * 0.85; // Lăsăm jos dacă bilele sunt sus
+    }
 
     let currentSum = selectedBalls.reduce((acc, b) => acc + b.value, 0);
 
@@ -249,7 +266,8 @@ export default class Level8Scene extends Phaser.Scene {
       // Răspuns Greșit: Penalizare (Clonare)
       selectedBalls.forEach((b) => {
         b.selected = false;
-        b.sprite.setAlpha(1);
+        b.sprite.setTint(b.originalColor);
+        b.text.setColor("#000000");
         b.sprite.setScale(1);
         // Spawnăm o copie aproape în aceeași locație (ușor defazată)
         this.spawnBall(
