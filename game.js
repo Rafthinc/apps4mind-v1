@@ -6,6 +6,7 @@ import Level4Scene from "./Level4Scene.js";
 import Level5Scene from "./Level5Scene.js";
 import Level6Scene from "./Level6Scene.js";
 import Level7Scene from "./Level7Scene.js";
+import Level8Scene from "./Level8Scene.js";
 
 // Configurarea de bază a jocului
 const config = {
@@ -20,6 +21,13 @@ const config = {
     width: "100%",
     height: "100%",
   },
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { y: 250 },
+      debug: false,
+    },
+  },
   backgroundColor: "#E0F2F1", // Fundal calm (mint pastel)
   scene: [
     StartScene,
@@ -30,6 +38,7 @@ const config = {
     Level5Scene,
     Level6Scene,
     Level7Scene,
+    Level8Scene,
   ], // Adăugăm scenele aici
 };
 
